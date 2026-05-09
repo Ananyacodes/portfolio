@@ -11,11 +11,8 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.09), transparent 35%),
-        radial-gradient(circle at top right, rgba(16, 185, 129, 0.06), transparent 28%),
-        linear-gradient(180deg, #081018 0%, #0a0f17 100%);
-      color: #eef2ff;
+      background: #0a0e27;
+      color: #e5e9f0;
       line-height: 1.6;
       min-height: 100vh;
       position: relative;
@@ -31,7 +28,7 @@
       z-index: 0;
     }
     body::before {
-      background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.12), transparent 22%);
+      background: radial-gradient(circle at 20% 20%, rgba(0, 255, 200, 0.12), transparent 22%);
       opacity: 0.8;
     }
     body::after {
@@ -63,9 +60,9 @@
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #e2f3ff;
+      color: #00ffc8;
     }
-    .logo span { color: #38bdf8; }
+    .logo span { color: #ff006e; }
     .social-icons { display: flex; gap: 0.75rem; }
     .social-icons a {
       color: #94a3b8;
@@ -81,7 +78,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.2), transparent 70%);
+      background: radial-gradient(circle, rgba(0, 255, 200, 0.2), transparent 70%);
       transform: scale(0);
       transition: transform 0.4s ease;
       pointer-events: none;
@@ -90,16 +87,16 @@
       transform: scale(1);
     }
     .social-icons a:hover {
-      color: #38bdf8;
+      color: #00ffc8;
       transform: translateY(-3px) scale(1.1);
-      background: rgba(56, 189, 248, 0.18);
-      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.25);
+      background: rgba(0, 255, 200, 0.18);
+      box-shadow: 0 8px 20px rgba(0, 255, 200, 0.25);
     }
 
     .nav-tabs {
       display: inline-flex;
       gap: 0.5rem;
-      background: rgba(15, 23, 42, 0.72);
+      background: rgba(10, 14, 35, 0.72);
       border: 1px solid rgba(148, 163, 184, 0.14);
       padding: 0.45rem;
       border-radius: 999px;
@@ -124,7 +121,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(56, 189, 248, 0.1);
+      background: rgba(0, 255, 200, 0.1);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s ease;
@@ -134,14 +131,14 @@
       transform: scaleX(1);
     }
     .tab-btn:hover {
-      background: rgba(56, 189, 248, 0.12);
+      background: rgba(0, 255, 200, 0.12);
       color: #c7f2ff;
       transform: translateY(-2px);
     }
     .tab-btn.active {
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      background: linear-gradient(135deg, #00ffc8, #00f5ff);
       color: #04111a;
-      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 8px 24px rgba(0, 255, 200, 0.25);
       animation: float 2s ease-in-out infinite;
     }
 
@@ -196,10 +193,10 @@
 
     @keyframes glow {
       0%, 100% {
-        box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), 0 8px 32px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 20px rgba(0, 255, 200, 0.3), 0 8px 32px rgba(0, 0, 0, 0.2);
       }
       50% {
-        box-shadow: 0 0 40px rgba(56, 189, 248, 0.5), 0 8px 32px rgba(56, 189, 248, 0.15);
+        box-shadow: 0 0 40px rgba(0, 255, 200, 0.5), 0 8px 32px rgba(0, 255, 200, 0.15);
       }
     }
 
@@ -226,12 +223,12 @@
 
     @keyframes borderGlow {
       0%, 100% {
-        border-color: rgba(56, 189, 248, 0.18);
-        box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.05);
+        border-color: rgba(0, 255, 200, 0.18);
+        box-shadow: inset 0 0 15px rgba(0, 255, 200, 0.05);
       }
       50% {
-        border-color: rgba(56, 189, 248, 0.35);
-        box-shadow: inset 0 0 25px rgba(56, 189, 248, 0.12);
+        border-color: rgba(0, 255, 200, 0.35);
+        box-shadow: inset 0 0 25px rgba(0, 255, 200, 0.12);
       }
     }
 
@@ -304,14 +301,14 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.1), transparent 50%);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 200, 0.1), transparent 50%);
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
     .hero-card:hover {
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 30px 80px rgba(56, 189, 248, 0.12), 0 8px 32px rgba(0, 0, 0, 0.3);
+      border-color: rgba(0, 255, 200, 0.4);
+      box-shadow: 0 30px 80px rgba(0, 255, 200, 0.12), 0 8px 32px rgba(0, 0, 0, 0.3);
       transform: translateY(-4px);
     }
     .hero-card:hover::before {
@@ -348,8 +345,8 @@
       align-items: center;
       gap: 0.9rem;
       padding: 1rem 1.05rem;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(10, 15, 24, 0.12));
-      border-color: rgba(56, 189, 248, 0.22);
+      background: linear-gradient(135deg, rgba(0, 255, 200, 0.14), rgba(10, 15, 24, 0.12));
+      border-color: rgba(0, 255, 200, 0.22);
     }
     .thm-stat.rank .stat-number {
       margin-bottom: 0;
@@ -391,7 +388,7 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), transparent);
+      background: linear-gradient(90deg, rgba(0, 255, 200, 0.55), transparent);
       margin-top: 2px;
     }
 
@@ -410,7 +407,7 @@
     }
     .projects-showcase .project-card {
       background: linear-gradient(135deg, rgba(10, 20, 35, 0.8) 0%, rgba(15, 25, 40, 0.6) 100%);
-      border: 1px solid rgba(56, 189, 248, 0.18);
+      border: 1px solid rgba(0, 255, 200, 0.18);
       backdrop-filter: blur(10px);
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
@@ -421,7 +418,7 @@
     .project-card, .exp-card, .skill-card, .skill-category, .stat-card {
       background: rgba(10, 15, 24, 0.72);
       background-image: 
-        linear-gradient(135deg, rgba(56, 189, 248, 0.05) 0%, transparent 50%, rgba(16, 185, 129, 0.03) 100%);
+        linear-gradient(135deg, rgba(0, 255, 200, 0.05) 0%, transparent 50%, rgba(16, 185, 129, 0.03) 100%);
       border: 1px solid rgba(148, 163, 184, 0.12);
       border-radius: 1.1rem;
       padding: 1.25rem;
@@ -438,7 +435,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.15), transparent);
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 200, 0.15), transparent);
       transition: left 0.5s ease;
       z-index: 0;
       pointer-events: none;
@@ -450,7 +447,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at var(--hover-x, 50%) var(--hover-y, 50%), rgba(56, 189, 248, 0.1), transparent 50%);
+      background: radial-gradient(circle at var(--hover-x, 50%) var(--hover-y, 50%), rgba(0, 255, 200, 0.1), transparent 50%);
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: 0;
@@ -465,8 +462,8 @@
     }
     .project-card:hover, .exp-card:hover, .skill-card:hover, .skill-category:hover, .stat-card:hover {
       transform: translateY(-12px) translateZ(0) scale(1.01);
-      border-color: rgba(56, 189, 248, 0.55);
-      box-shadow: 0 30px 80px rgba(56, 189, 248, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border-color: rgba(0, 255, 200, 0.55);
+      box-shadow: 0 30px 80px rgba(0, 255, 200, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       background: rgba(15, 20, 35, 0.9);
       filter: brightness(1.05);
     }
@@ -505,8 +502,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.04));
-      border: 1px solid rgba(56, 189, 248, 0.18);
+      background: linear-gradient(135deg, rgba(0, 255, 200, 0.2), rgba(14, 165, 233, 0.04));
+      border: 1px solid rgba(0, 255, 200, 0.18);
       color: #d9f4ff;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
@@ -532,16 +529,16 @@
       margin-top: 1rem;
     }
     .tag, .skill-tag {
-      background: rgba(56, 189, 248, 0.1);
+      background: rgba(0, 255, 200, 0.1);
       color: #bfeeff;
       padding: 0.38rem 0.8rem;
       border-radius: 999px;
       font-size: 0.8rem;
-      border: 1px solid rgba(56, 189, 248, 0.18);
+      border: 1px solid rgba(0, 255, 200, 0.18);
     }
 
     .exp-date {
-      color: #38bdf8;
+      color: #00ffc8;
       font-size: 0.82rem;
       font-weight: 600;
       white-space: nowrap;
@@ -607,20 +604,20 @@
     }
     .cta-button:hover, .btn:hover {
       transform: translateY(-2px);
-      border-color: rgba(56, 189, 248, 0.48);
-      background: rgba(56, 189, 248, 0.15);
-      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
+      border-color: rgba(0, 255, 200, 0.48);
+      background: rgba(0, 255, 200, 0.15);
+      box-shadow: 0 8px 20px rgba(0, 255, 200, 0.2);
     }
     .cta-button-outline {
       background: transparent;
       color: #bfeeff;
     }
     .btn-primary {
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      background: linear-gradient(135deg, #00ffc8, #00f5ff);
       color: #04111a;
       border-color: transparent;
     }
-    .btn-primary:hover { background: linear-gradient(135deg, #51c8ff, #14b8ff); }
+    .btn-primary:hover { background: linear-gradient(135deg, #51c8ff, #00ffdd); }
 
     .github-link {
       margin-top: 0.8rem;
@@ -745,8 +742,8 @@
       outline: none;
     }
     input:focus, select:focus {
-      border-color: rgba(56, 189, 248, 0.6);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+      border-color: rgba(0, 255, 200, 0.6);
+      box-shadow: 0 0 0 3px rgba(0, 255, 200, 0.12);
     }
 
     .results-grid {
@@ -773,14 +770,14 @@
     .result-card .icon {
       width: 1.5rem;
       text-align: center;
-      color: #38bdf8;
+      color: #00ffc8;
     }
     .port-item {
       background: rgba(148, 163, 184, 0.05);
       padding: 0.8rem;
       border-radius: 0.8rem;
       margin-bottom: 0.6rem;
-      border-left: 3px solid #38bdf8;
+      border-left: 3px solid #00ffc8;
       font-family: 'Courier New', monospace;
       font-size: 0.8rem;
     }
@@ -838,7 +835,7 @@
       background: rgba(10, 15, 24, 0.78);
       border-radius: 1rem;
       padding: 1.25rem;
-      border: 1px solid rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(0, 255, 200, 0.16);
       margin-bottom: 1rem;
     }
     .scan-summary h3 {
@@ -879,7 +876,7 @@
       border-radius: 1.1rem;
       max-width: 520px;
       text-align: center;
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(0, 255, 200, 0.2);
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
     }
     .loading {
@@ -928,7 +925,7 @@
   <header>
     <div class="container">
       <div class="header-content">
-        <div class="logo">⚔️ ANANYA KAR</div>
+        <div class="logo"> ANANYA KAR</div>
         <div class="social-icons">
           <a href="https://github.com/Ananyacodes" target="_blank" title="GitHub"><i class="fab fa-github fa-lg"></i></a>
           <a href="https://linkedin.com/in/ananya-kar-6378291b4" target="_blank" title="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
@@ -940,24 +937,25 @@
 
   <div class="container">
     <div class="nav-tabs">
-      <button class="tab-btn active" data-tab="portfolio">📊 Portfolio & Credentials</button>
-      <button class="tab-btn" data-tab="scanner">🔍 Real Security Scanner</button>
+      <button class="tab-btn active" data-tab="portfolio"> Portfolio & Credentials</button>
+      <button class="tab-btn" data-tab="scanner">Scan ze puter</button>
     </div>
 
     <!-- PORTFOLIO TAB -->
     <div id="portfolio-tab" class="tab-content active">
       <div class="hero-grid">
         <div class="hero-content">
-          <span style="background:rgba(56,189,248,0.2); padding:0.2rem 1rem; border-radius:40px; font-size:0.8rem;">🔍 SOC Analyst | Blue Team</span>
+          <span style="background:rgba(0,255,200,0.15); padding:0.2rem 1rem; border-radius:40px; font-size:0.8rem;">SOC Analyst | Blue Team</span>
           <h1 style="font-size: 2.8rem; margin: 1rem 0;">Ananya Kar<br>Cybersecurity & Detection Engineering</h1>
-          <p>Splunk, log analysis, incident response, and threat detection. TryHackMe Top 9% with 86 rooms completed.</p>
+          <p>Splunk, log analysis, incident response, and threat detection. TryHackMe Top 9%.</p>
+          <p>I create cute stuff to protect your device</p>
           <div style="margin: 1.5rem 0;">
             <a href="mailto:ananyakar2007@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Contact</a>
             <a href="https://github.com/Ananyacodes" target="_blank" class="btn" style="margin-left: 0.8rem;"><i class="fab fa-github"></i> GitHub</a>
           </div>
         </div>
         <a class="hero-card thm-profile-card" id="thmProfileLink" href="https://tryhackme.com/p/ananyakar2007" target="_blank" rel="noreferrer">
-          <i class="fas fa-shield-haltered" style="font-size: 3rem; color:#38bdf8;"></i>
+          <i class="fas fa-shield-haltered" style="font-size: 3rem; color:#00ffc8;"></i>
           <h3>TryHackMe • Live Profile</h3>
           <p>Rank, rooms, and badges are refreshed from the public profile snapshot when it is available.</p>
           <div class="thm-stats" id="thmStatsContainer">
@@ -970,14 +968,14 @@
         </a>
       </div>
 
-      <h2 class="section-title"><i class="fas fa-code-branch"></i> Featured Projects</h2>
+      <h2 class="section-title">Featured Projects</h2>
       <div class="projects-showcase">
         <a class="project-card project-card-link" href="https://github.com/Ananyacodes/behavior-logger" target="_blank" rel="noreferrer">
           <div class="project-topline">
             <div>
               <div class="project-mark">01</div>
               <h3 style="margin-top: 0.9rem; font-size: 1.15rem;">Behavior Logger</h3>
-              <p style="font-size: 0.8rem; color: #38bdf8; margin: 0.2rem 0 0;">Anomaly Detection</p>
+              <p style="font-size: 0.8rem; color: #00ffc8; margin: 0.2rem 0 0;">Anomaly Detection</p>
             </div>
             <span class="project-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
           </div>
@@ -986,13 +984,12 @@
             <span class="tag">Python</span><span class="tag">Behavioral Analysis</span><span class="tag">Real-time</span>
           </div>
         </a>
-        <!-- Second project card removed per request -->
         <a class="project-card project-card-link" href="https://github.com/Ananyacodes/Auto-Secure-Chain" target="_blank" rel="noreferrer">
           <div class="project-topline">
             <div>
               <div class="project-mark">02</div>
               <h3 style="margin-top: 0.9rem; font-size: 1.15rem;">Auto-Secure-Chain</h3>
-              <p style="font-size: 0.8rem; color: #38bdf8; margin: 0.2rem 0 0;">ECU Firmware Scanner</p>
+              <p style="font-size: 0.8rem; color: #00ffc8; margin: 0.2rem 0 0;">ECU Firmware Scanner</p>
             </div>
             <span class="project-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
           </div>
@@ -1006,7 +1003,7 @@
             <div>
               <div class="project-mark">03</div>
               <h3 style="margin-top: 0.9rem; font-size: 1.15rem;">5G Digital Twin</h3>
-              <p style="font-size: 0.8rem; color: #38bdf8; margin: 0.2rem 0 0;">Security Framework</p>
+              <p style="font-size: 0.8rem; color: #00ffc8; margin: 0.2rem 0 0;">Security Framework</p>
             </div>
             <span class="project-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
           </div>
@@ -1017,7 +1014,7 @@
         </a>
       </div>
 
-      <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+      <h2 class="section-title">Experience</h2>
       <div class="exp-card">
         <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
           <div>
@@ -1047,7 +1044,7 @@
         </ul>
       </div>
 
-      <h2 class="section-title"><i class="fas fa-microchip"></i> Technical Skills</h2>
+      <h2 class="section-title">Technical Skills</h2>
       <div class="skills-section">
         <div class="skill-category">
           <h4>🔍 Threat Detection & Analysis</h4>
@@ -1057,21 +1054,21 @@
           </div>
         </div>
         <div class="skill-category">
-          <h4>🛠️ Security Tools & Scanning</h4>
+          <h4> Security Tools & Scanning</h4>
           <div class="tags">
             <span class="tag">Nmap</span><span class="tag">Burp Suite</span><span class="tag">Kali Linux</span>
             <span class="tag">Metasploit</span><span class="tag">YARA Rules</span><span class="tag">Forensics</span>
           </div>
         </div>
         <div class="skill-category">
-          <h4>💻 Programming & Systems</h4>
+          <h4> Programming & Systems</h4>
           <div class="tags">
             <span class="tag">Python</span><span class="tag">Java</span><span class="tag">Linux</span>
             <span class="tag">Windows Security</span><span class="tag">CAN Bus</span><span class="tag">ECU Analysis</span>
           </div>
         </div>
         <div class="skill-category">
-          <h4>🌐 Network & Compliance</h4>
+          <h4> Network & Compliance</h4>
           <div class="tags">
             <span class="tag">Network Security</span><span class="tag">OWASP Top 10</span><span class="tag">Incident Response</span>
             <span class="tag">5G/6G Security</span><span class="tag">Digital Forensics</span><span class="tag">Cryptography</span>
@@ -1079,7 +1076,7 @@
         </div>
       </div>
 
-      <h2 class="section-title"><i class="fas fa-star"></i> Achievements & Highlights</h2>
+      <h2 class="section-title">Achievements & Highlights</h2>
       <div class="cards-grid">
         <div class="stat-card">
           <div style="text-align: center;">
@@ -1104,9 +1101,9 @@
         </div>
       </div>
 
-      <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+      <h2 class="section-title">Education</h2>
       <div class="exp-card">
-        <strong>B.Tech. Computer Science</strong> <span style="color:#0ea5e9;">Expected 2028</span>
+        <strong>B.Tech. Computer Science</strong> <span style="color:#00f5ff;">Expected 2028</span>
         <p>SRM Institute of Science and Technology (SRMIST), Bangalore</p>
         <p><strong>CGPA:</strong> 8.95/10.0</p>
         <p><strong>Relevant Coursework:</strong> Computer Networks, Operating Systems, Cryptography, Information Security, Linux Systems, Wireless Communications</p>
@@ -1125,18 +1122,18 @@
       </div>
 
       <div class="scan-card">
-        <h3><i class="fas fa-shield-haltered"></i> Target Configuration</h3>
-        <p style="color: #ffaa44; margin: 0.5rem 0;">⚠️ By using this tool, you confirm you have permission to scan the target.</p>
+        <h3>Target Configuration</h3>
+        <p style="color: #ffaa44; margin: 0.5rem 0;">⚠ By using this tool, you confirm you have permission to scan the target.</p>
         <input type="text" id="targetInput" placeholder="Target (localhost, 192.168.1.1, scanme.nmap.org)" value="localhost">
         <select id="scanType">
           <option value="quick">Attack Surface Sweep</option>
           <option value="full">Deep Posture Review</option>
         </select>
-        <button class="btn btn-primary" id="startScanBtn" style="margin-top: 1rem; width: 100%;"><i class="fas fa-play"></i> Start Intelligence Scan</button>
+        <button class="btn btn-primary" id="startScanBtn" style="margin-top: 1rem; width: 100%;">Start Scan</button>
       </div>
 
       <div class="loading" id="loadingIndicator">
-        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color:#38bdf8;"></i>
+        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color:#00ffc8;"></i>
         <p>Building an attack-surface profile... This may take 10-30 seconds.</p>
       </div>
 
@@ -1157,9 +1154,9 @@
         </div>
       </div>
 
-      <div class="scan-card" style="background: #0a0c10; border-color: #38bdf8;">
-        <h3><i class="fas fa-terminal"></i> Quick Setup (2 minutes)</h3>
-        <p>To enable live intelligence scans, run this backend:</p>
+      <div class="scan-card" style="background: #0a0c10; border-color: #00ffc8;">
+        <h3>Quick Setup</h3>
+        <p>To enable live scans, run this backend:</p>
         <pre style="background: #0a0c10; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.7rem;">
 # 1. Install Flask & Nmap
 pip install flask flask-cors
@@ -1180,9 +1177,8 @@ python scanner_backend.py
 
   <div id="permissionModal" class="modal">
     <div class="modal-content">
-      <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #f97316;"></i>
-      <h2>⚠️ Authorization Required</h2>
-      <p>This will perform <strong>REAL network intelligence checks</strong> including:</p>
+      <h2>Authorization Required</h2>
+      <p>This will perform network intelligence checks including:</p>
       <ul style="text-align: left; margin: 1rem;">
         <li>ICMP ping tests</li>
         <li>DNS resolution and reverse lookup</li>
@@ -1190,12 +1186,94 @@ python scanner_backend.py
         <li>TLS and HTTP posture analysis</li>
       </ul>
       <p><strong>I confirm I have explicit permission to scan this target.</strong></p>
-      <button id="acceptBtn" class="btn btn-primary">✅ Proceed with Real Scan</button>
-      <button id="cancelBtn" class="btn">❌ Cancel</button>
+      <button id="acceptBtn" class="btn btn-primary">Proceed</button>
+      <button id="cancelBtn" class="btn">Cancel</button>
     </div>
   </div>
 
+  <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; pointer-events: none; z-index: 0; opacity: 0.3;"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
+    // Igloo.inc-style scroll disintegration effect
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    let scrollProgress = 0;
+    const particleCount = 80;
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 8;
+        this.vy = (Math.random() - 0.5) * 8;
+        this.life = 1;
+        this.decay = Math.random() * 0.01 + 0.005;
+        this.size = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.5 ? '#00ffc8' : '#ff006e';
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.1; // gravity
+        this.life -= this.decay;
+      }
+
+      draw() {
+        ctx.globalAlpha = this.life;
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function burst(x, y, count) {
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles = particles.filter(p => p.life > 0);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('scroll', () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = Math.min(window.scrollY / maxScroll, 1);
+
+      // Burst particles at intervals during scroll
+      if (Math.random() > 0.92) {
+        burst(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height * 0.3,
+          Math.floor(Math.random() * 5 + 2)
+        );
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    animate();
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     const API_BASE = 'http://localhost:5000';
     const RESUME_THM = { rank: '194,052', rooms: '86', badges: '10', streak: '0' };
 
