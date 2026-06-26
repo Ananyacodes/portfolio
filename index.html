@@ -1,1729 +1,254 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ananya Kar | Cybersecurity & Threat Intelligence</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ananya Kar | Portfolio</title>
+  <meta name="description" content="Interactive portfolio for Ananya Kar, focused on cybersecurity, threat intelligence, and resilient product thinking." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #030711;
+      --panel: rgba(9, 15, 31, 0.8);
+      --text: #f4f7ff;
+      --muted: #92a2bf;
+      --accent: #61f7d3;
+      --accent-2: #8a8dff;
+      --line: rgba(255,255,255,0.12);
+      --shadow: 0 24px 60px rgba(0,0,0,0.28);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
+      margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #0a0e27;
-      color: #e5e9f0;
-      line-height: 1.6;
+      color: var(--text);
+      background: radial-gradient(circle at top left, rgba(97,247,211,0.16), transparent 30%), linear-gradient(135deg, #030711 0%, #07111f 40%, #030711 100%);
       min-height: 100vh;
-      position: relative;
       overflow-x: hidden;
-      perspective: 1200px;
     }
-    body::before,
-    body::after {
-      content: '';
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    #neural-canvas {
       position: fixed;
       inset: 0;
-      pointer-events: none;
+      width: 100%;
+      height: 100%;
       z-index: 0;
-    }
-    body::before {
-      background: radial-gradient(circle at 20% 20%, rgba(0, 255, 200, 0.12), transparent 22%);
       opacity: 0.8;
+      pointer-events: none;
     }
-    body::after {
-      background-image: linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.55), transparent 90%);
-      opacity: 0.18;
-    }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
-
-    header {
-      background: rgba(8, 16, 24, 0.72);
-      backdrop-filter: blur(14px);
-      padding: 1.25rem 0;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    .site-shell { position: relative; z-index: 1; padding: 0 1.2rem 3rem; }
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
-    }
-    .header-content {
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1rem 0;
+      backdrop-filter: blur(18px);
     }
-    .logo {
+    .brand {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #00ffc8;
-    }
-    .logo span { color: #ff006e; }
-    .social-icons { display: flex; gap: 0.75rem; }
-    .social-icons a {
-      color: #94a3b8;
-      text-decoration: none;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-      padding: 0.5rem;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.06);
-      position: relative;
-      overflow: hidden;
-    }
-    .social-icons a::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle, rgba(0, 255, 200, 0.2), transparent 70%);
-      transform: scale(0);
-      transition: transform 0.4s ease;
-      pointer-events: none;
-    }
-    .social-icons a:hover::before {
-      transform: scale(1);
-    }
-    .social-icons a:hover {
-      color: #00ffc8;
-      transform: translateY(-3px) scale(1.1);
-      background: rgba(0, 255, 200, 0.18);
-      box-shadow: 0 8px 20px rgba(0, 255, 200, 0.25);
-    }
-
-    .nav-tabs {
-      display: inline-flex;
-      gap: 0.5rem;
-      background: rgba(10, 14, 35, 0.72);
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      padding: 0.45rem;
-      border-radius: 999px;
-      margin: 1.5rem 0 2rem;
-      flex-wrap: wrap;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
-    }
-    .tab-btn {
-      background: transparent;
-      border: none;
-      padding: 0.75rem 1.35rem;
-      border-radius: 999px;
-      font-weight: 600;
-      cursor: pointer;
-      color: #94a3b8;
       font-size: 0.95rem;
-      transition: background 0.3s ease, color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
-      overflow: hidden;
+      color: var(--accent);
     }
-    .tab-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 255, 200, 0.1);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-      pointer-events: none;
-    }
-    .tab-btn:hover::before {
-      transform: scaleX(1);
-    }
-    .tab-btn:hover {
-      background: rgba(0, 255, 200, 0.12);
-      color: #c7f2ff;
-      transform: translateY(-2px);
-    }
-    .tab-btn.active {
-      background: linear-gradient(135deg, #00ffc8, #00f5ff);
-      color: #04111a;
-      box-shadow: 0 8px 24px rgba(0, 255, 200, 0.25);
-      animation: float 2s ease-in-out infinite;
-    }
-
-    .tab-content { display: none; animation: fadeIn 0.28s ease; }
-    .tab-content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Scroll-triggered animations */
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes floatIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes glow {
-      0%, 100% {
-        box-shadow: 0 0 20px rgba(0, 255, 200, 0.3), 0 8px 32px rgba(0, 0, 0, 0.2);
-      }
-      50% {
-        box-shadow: 0 0 40px rgba(0, 255, 200, 0.5), 0 8px 32px rgba(0, 255, 200, 0.15);
-      }
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    @keyframes borderGlow {
-      0%, 100% {
-        border-color: rgba(0, 255, 200, 0.18);
-        box-shadow: inset 0 0 15px rgba(0, 255, 200, 0.05);
-      }
-      50% {
-        border-color: rgba(0, 255, 200, 0.35);
-        box-shadow: inset 0 0 25px rgba(0, 255, 200, 0.12);
-      }
-    }
-
-
-
-    .animate-on-scroll {
-      opacity: 0;
-      animation: slideInUp 0.6s ease forwards;
-    }
-
-    .animate-on-scroll.left {
-      animation: slideInLeft 0.6s ease forwards;
-    }
-
-    .animate-on-scroll.right {
-      animation: slideInRight 0.6s ease forwards;
-    }
-
-    .hero {
-      padding: 3.5rem 0 1rem;
-      text-align: left;
-    }
-    .hero h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.6rem, 5vw, 4.8rem);
-      line-height: 0.95;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      color: #f8fbff;
-      letter-spacing: -0.03em;
-    }
-    .hero .subtitle {
-      font-size: 1.05rem;
-      color: #94a3b8;
-      margin-bottom: 1.75rem;
-      max-width: 760px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-      gap: 1.5rem;
-      align-items: stretch;
-      margin-top: 2rem;
-      margin-bottom: 3rem;
-    }
-    .hero-content { min-width: 0; }
-    .hero-card,
-    .thm-profile-card {
-      background: rgba(10, 15, 24, 0.8);
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      border-radius: 1.35rem;
-      padding: 1.5rem;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1rem;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    .thm-profile-card {
-      display: flex;
-      text-decoration: none;
-      color: inherit;
-      min-height: 100%;
-    }
-    .hero-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 200, 0.1), transparent 50%);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .hero-card:hover {
-      border-color: rgba(0, 255, 200, 0.4);
-      box-shadow: 0 30px 80px rgba(0, 255, 200, 0.12), 0 8px 32px rgba(0, 0, 0, 0.3);
-      transform: translateY(-4px);
-    }
-    .hero-card:hover::before {
-      opacity: 1;
-    }
-    .hero-card h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
-      margin-top: 0.25rem;
-    }
-    .card-link-hint {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: #7dd3fc;
-      font-size: 0.82rem;
-      margin-top: 0.45rem;
-    }
-    .hero-card p {
-      color: #94a3b8;
-      font-size: 0.85rem;
-    }
-    .thm-stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.75rem;
-      margin-top: 0.5rem;
-    }
-    .thm-stat.rank {
-      grid-column: 1 / -1;
-      text-align: left;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 0.9rem;
-      padding: 1rem 1.05rem;
-      background: linear-gradient(135deg, rgba(0, 255, 200, 0.14), rgba(10, 15, 24, 0.12));
-      border-color: rgba(0, 255, 200, 0.22);
-    }
-    .thm-stat.rank .stat-number {
-      margin-bottom: 0;
-      font-size: 2rem;
-    }
-    .thm-stat.rank .stat-label {
-      margin-top: 0;
-      font-size: 0.82rem;
-      color: #c7f2ff;
-    }
-    .thm-stat {
-      background: rgba(148, 163, 184, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      padding: 0.9rem 0.85rem;
-      border-radius: 1rem;
-      text-align: center;
-    }
-    .stat-number {
-      display: block;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: #e2f3ff;
-      line-height: 1;
-      margin-bottom: 0.35rem;
-    }
-    .stat-label { font-size: 0.82rem; color: #94a3b8; margin-top: 0.35rem; }
-
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.45rem;
-      font-weight: 700;
-      margin: 2.5rem 0 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(0, 255, 200, 0.55), transparent);
-      margin-top: 2px;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.1rem;
-      margin-top: 1.1rem;
-    }
-
-    .projects-showcase {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .projects-showcase .project-card {
-      background: linear-gradient(135deg, rgba(10, 20, 35, 0.8) 0%, rgba(15, 25, 40, 0.6) 100%);
-      border: 1px solid rgba(0, 255, 200, 0.18);
-      backdrop-filter: blur(10px);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-    }
-    .projects-showcase .project-card p {
-      line-height: 1.6;
-    }
-
-    .project-card, .exp-card, .skill-card, .skill-category, .stat-card {
-      background: rgba(10, 15, 24, 0.72);
-      background-image: 
-        linear-gradient(135deg, rgba(0, 255, 200, 0.05) 0%, transparent 50%, rgba(16, 185, 129, 0.03) 100%);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      border-radius: 1.1rem;
-      padding: 1.25rem;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, filter 0.35s ease;
-      position: relative;
-      overflow: hidden;
-      will-change: transform, box-shadow, filter;
-      filter: brightness(1);
-    }
-    .project-card::before, .exp-card::before, .skill-card::before, .skill-category::before, .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 200, 0.15), transparent);
-      transition: left 0.5s ease;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .project-card:hover::before, .exp-card:hover::before, .skill-card:hover::before, .skill-category:hover::before, .stat-card:hover::before {
-      left: 100%;
-    }
-    .project-card::after, .exp-card::after, .skill-card::after, .skill-category::after, .stat-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at var(--hover-x, 50%) var(--hover-y, 50%), rgba(0, 255, 200, 0.1), transparent 50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .project-card:hover::after, .exp-card:hover::after, .skill-card:hover::after, .skill-category:hover::after, .stat-card:hover::after {
-      opacity: 1;
-    }
-    .project-card > *, .exp-card > *, .skill-card > *, .skill-category > *, .stat-card > * {
-      position: relative;
-      z-index: 1;
-    }
-    .project-card:hover, .exp-card:hover, .skill-card:hover, .skill-category:hover, .stat-card:hover {
-      transform: translateY(-12px) translateZ(0) scale(1.01);
-      border-color: rgba(0, 255, 200, 0.55);
-      box-shadow: 0 30px 80px rgba(0, 255, 200, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      background: rgba(15, 20, 35, 0.9);
-      filter: brightness(1.05);
-    }
-    .project-card h3, .exp-card h3, .skill-category h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      color: #e2f3ff;
-      margin-bottom: 0.55rem;
-      font-size: 1.05rem;
-    }
-    .project-card p, .exp-card p {
-      color: #cbd5e1;
-      font-size: 0.95rem;
-      margin-bottom: 0.8rem;
-      line-height: 1.55;
-    }
-    .project-card-link {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-    .project-card-link:hover {
-      color: inherit;
-    }
-    .project-topline {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .project-mark {
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(0, 255, 200, 0.2), rgba(14, 165, 233, 0.04));
-      border: 1px solid rgba(0, 255, 200, 0.18);
-      color: #d9f4ff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      flex: none;
-    }
-    .project-arrow {
-      color: #86d8ff;
-      font-size: 0.92rem;
-      transform: translateX(0);
-      transition: transform 0.25s ease;
-      flex: none;
-      margin-top: 0.1rem;
-    }
-    .project-card-link:hover .project-arrow {
-      transform: translateX(4px);
-    }
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .tag, .skill-tag {
-      background: rgba(0, 255, 200, 0.1);
-      color: #bfeeff;
-      padding: 0.38rem 0.8rem;
+    .nav { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a {
+      padding: 0.65rem 0.9rem;
       border-radius: 999px;
-      font-size: 0.8rem;
-      border: 1px solid rgba(0, 255, 200, 0.18);
+      color: var(--muted);
+      transition: all 180ms ease;
+      border: 1px solid transparent;
     }
-
-    .exp-date {
-      color: #00ffc8;
-      font-size: 0.82rem;
-      font-weight: 600;
-      white-space: nowrap;
+    .nav a:hover {
+      color: var(--text);
+      border-color: rgba(97,247,211,0.3);
+      background: rgba(97,247,211,0.08);
     }
-    .exp-company {
-      color: #94a3b8;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
+    .section { max-width: 1120px; margin: 0 auto 2rem; padding: 1.2rem 0 1rem; }
+    .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.25rem; align-items: stretch; padding-top: 3rem; }
+    .hero-card, .panel {
+      background: linear-gradient(145deg, rgba(8, 15, 28, 0.96), rgba(8, 15, 28, 0.74));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
     }
-    .exp-card ul {
-      margin-left: 1.15rem;
-      color: #cbd5e1;
-      font-size: 0.92rem;
-    }
-    .exp-card li { margin-bottom: 0.5rem; }
-
-    .skills-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin: 1rem 0;
-    }
-    .skill-category .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .cta-button, .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(148, 163, 184, 0.07);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      padding: 0.75rem 1.15rem;
-      border-radius: 999px;
-      font-weight: 600;
-      text-decoration: none;
-      color: #e2f3ff;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-button::before, .btn::before {
+    .hero-card { padding: 2rem; position: relative; overflow: hidden; }
+    .hero-card::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.1);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
+      inset: -1px;
+      background: linear-gradient(120deg, transparent 20%, rgba(97,247,211,0.15), transparent 60%);
+      transform: translateX(-120%);
+      transition: transform 600ms ease;
       pointer-events: none;
     }
-    .cta-button:hover::before, .btn:hover::before {
-      transform: scaleX(1);
-    }
-    .cta-button:hover, .btn:hover {
-      transform: translateY(-2px);
-      border-color: rgba(0, 255, 200, 0.48);
-      background: rgba(0, 255, 200, 0.15);
-      box-shadow: 0 8px 20px rgba(0, 255, 200, 0.2);
-    }
-    .cta-button-outline {
-      background: transparent;
-      color: #bfeeff;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #00ffc8, #00f5ff);
-      color: #04111a;
-      border-color: transparent;
-    }
-    .btn-primary:hover { background: linear-gradient(135deg, #51c8ff, #00ffdd); }
-
-    .github-link {
-      margin-top: 0.8rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.85rem;
-      color: #86d8ff;
-      text-decoration: none;
-    }
-
-    .scan-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-      gap: 1rem;
-      align-items: stretch;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-    .scan-overview {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.85rem;
-    }
-    .scan-metric {
-      background: rgba(10, 15, 24, 0.78);
-      border-radius: 1rem;
-      padding: 1rem;
-      border: 1px solid rgba(148, 163, 184, 0.12);
-    }
-    .scan-metric .label {
-      color: #94a3b8;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.35rem;
-    }
-    .scan-metric .value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.35rem;
-      color: #f8fbff;
-      font-weight: 700;
-    }
-    .scan-metric .subvalue {
-      color: #94a3b8;
-      font-size: 0.82rem;
-      margin-top: 0.35rem;
-    }
-    .intel-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.75rem;
-      margin-top: 0.6rem;
-    }
-    .intel-pill {
-      border-radius: 0.85rem;
-      padding: 0.85rem;
-      background: rgba(148, 163, 184, 0.05);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-    }
-    .intel-pill small {
-      display: block;
-      color: #94a3b8;
-      font-size: 0.72rem;
-      margin-bottom: 0.25rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .intel-pill strong {
-      color: #e2f3ff;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-    .threat-panel {
-      border-radius: 1rem;
-      padding: 1rem;
-      background: rgba(10, 15, 24, 0.78);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      margin-bottom: 1rem;
-    }
-    .threat-panel h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 0.7rem;
-      color: #e2f3ff;
-    }
-    .threat-list {
-      display: grid;
-      gap: 0.55rem;
-    }
-    .threat-item {
-      border-radius: 0.75rem;
-      padding: 0.75rem 0.85rem;
-      background: rgba(148, 163, 184, 0.05);
-      border: 1px solid rgba(148, 163, 184, 0.1);
-      color: #dbe7f3;
-      font-size: 0.9rem;
-    }
-    .threat-item.remediation {
-      border-color: rgba(16, 185, 129, 0.16);
-      background: rgba(16, 185, 129, 0.06);
-    }
-
-    .scan-card {
-      background: rgba(10, 15, 24, 0.78);
-      border-radius: 1.25rem;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      border: 1px solid rgba(148, 163, 184, 0.14);
-    }
-    .scan-card h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 0.5rem;
-    }
-    input, select {
-      background: rgba(148, 163, 184, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      padding: 0.85rem 1rem;
-      border-radius: 0.9rem;
-      color: #f8fbff;
-      font-size: 0.98rem;
-      margin: 0.5rem 0;
-      width: 100%;
-      outline: none;
-    }
-    input:focus, select:focus {
-      border-color: rgba(0, 255, 200, 0.6);
-      box-shadow: 0 0 0 3px rgba(0, 255, 200, 0.12);
-    }
-
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .result-card {
-      background: rgba(10, 15, 24, 0.78);
-      border-radius: 1rem;
-      padding: 1.15rem;
-      border: 1px solid rgba(148, 163, 184, 0.12);
-    }
-    .result-card h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      color: #e2f3ff;
-      margin-bottom: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-size: 1rem;
-    }
-    .result-card .icon {
-      width: 1.5rem;
-      text-align: center;
-      color: #00ffc8;
-    }
-    .port-item {
-      background: rgba(148, 163, 184, 0.05);
-      padding: 0.8rem;
-      border-radius: 0.8rem;
-      margin-bottom: 0.6rem;
-      border-left: 3px solid #00ffc8;
-      font-family: 'Courier New', monospace;
-      font-size: 0.8rem;
-    }
-    .port-open { border-left-color: #10b981; }
-    .port-closed { border-left-color: #ef4444; }
-    .port-filtered { border-left-color: #f59e0b; }
-    .port-header {
-      font-weight: 700;
-      color: #f8fbff;
-      margin-bottom: 0.2rem;
-    }
-    .port-service {
-      color: #94a3b8;
-      font-size: 0.75rem;
-      margin-top: 0.2rem;
-    }
-    .ping-status {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1rem;
-      background: rgba(148, 163, 184, 0.05);
-      border-radius: 0.8rem;
-    }
-    .ping-status.online .status-dot { background: #10b981; }
-    .ping-status.offline .status-dot { background: #ef4444; }
-    .status-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      flex: none;
-    }
-    .stat-text { display: flex; flex-direction: column; }
-    .stat-text strong {
-      font-size: 0.92rem;
-      color: #f8fbff;
-    }
-    .stat-text small {
-      color: #94a3b8;
-      font-size: 0.76rem;
-    }
-    .no-results {
-      text-align: center;
-      padding: 2rem;
-      color: #94a3b8;
-      background: rgba(148, 163, 184, 0.04);
-      border-radius: 1rem;
-      border: 1px dashed rgba(148, 163, 184, 0.2);
-    }
-    .no-results .icon {
-      font-size: 2.2rem;
-      margin-bottom: 0.75rem;
-    }
-    .scan-summary {
-      background: rgba(10, 15, 24, 0.78);
-      border-radius: 1rem;
-      padding: 1.25rem;
-      border: 1px solid rgba(0, 255, 200, 0.16);
-      margin-bottom: 1rem;
-    }
-    .scan-summary h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      color: #e2f3ff;
-      margin-bottom: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .scan-stat-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.55rem 0;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-      font-size: 0.92rem;
-    }
-    .scan-stat-row:last-child { border-bottom: none; }
-    .scan-stat-label { color: #94a3b8; }
-    .scan-stat-value { color: #e2f3ff; font-weight: 600; text-align: right; }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(2, 6, 23, 0.82);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-    }
-    .modal-content {
-      background: #0b1220;
-      padding: 2rem;
-      border-radius: 1.1rem;
-      max-width: 520px;
-      text-align: center;
-      border: 1px solid rgba(0, 255, 200, 0.2);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-    }
-    .loading {
-      display: none;
-      text-align: center;
-      margin: 1rem 0;
-      color: #94a3b8;
-    }
-    .fa-spin { animation: fa-spin 1.3s infinite linear; }
-    @keyframes fa-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .status-badge {
+    .hero-card:hover::after { transform: translateX(120%); }
+    .eyebrow {
       display: inline-block;
-      padding: 0.34rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      margin-left: 0.5rem;
-      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 700;
     }
-    .status-online { background: rgba(16, 185, 129, 0.16); color: #7ee2b8; }
-    .status-offline { background: rgba(239, 68, 68, 0.16); color: #fca5a5; }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.82rem;
-      color: #94a3b8;
-      border-top: 1px solid rgba(148, 163, 184, 0.12);
-      margin-top: 2rem;
-    }
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .thm-stats { grid-template-columns: 1fr; }
-      .scan-hero { grid-template-columns: 1fr; }
-      .scan-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 780px) {
-      .hero h1 { font-size: 2.35rem; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .tab-btn { padding: 0.55rem 0.95rem; font-size: 0.82rem; }
-      .nav-tabs { border-radius: 1rem; }
-      .container { padding: 0 1rem; }
-      .scan-overview { grid-template-columns: 1fr; }
-    }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.05; margin: 0 0 0.8rem; }
+    h1 { font-size: clamp(2.3rem, 4.6vw, 4.2rem); max-width: 760px; }
+    .lead { font-size: 1.02rem; color: var(--muted); max-width: 640px; line-height: 1.7; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.2rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.8rem 1.1rem; border-radius: 999px; border: 1px solid transparent; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #02111f; font-weight: 700; box-shadow: 0 14px 25px rgba(97,247,211,0.2); }
+    .btn-secondary { color: var(--text); border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.03); }
+    .signal-panel { padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; }
+    .signal-pill { display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start; background: rgba(97,247,211,0.12); color: var(--accent); padding: 0.6rem 0.9rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
+    .signal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+    .mini-stat { padding: 0.9rem; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); min-height: 88px; }
+    .mini-stat strong { display: block; font-size: 1.15rem; margin-bottom: 0.25rem; color: var(--text); }
+    .mini-stat span { color: var(--muted); font-size: 0.9rem; }
+    .section-title { display: flex; align-items: center; gap: 0.75rem; margin: 1.75rem 0 1rem; color: var(--accent); letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(97,247,211,0.45), transparent); }
+    .card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .card { padding: 1.2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); transition: transform 220ms ease, border-color 220ms ease, background 220ms ease; }
+    .card:hover { transform: translateY(-3px); border-color: rgba(97,247,211,0.35); background: rgba(97,247,211,0.08); }
+    .card h3 { font-size: 1.1rem; margin-bottom: 0.45rem; }
+    .card p { color: var(--muted); line-height: 1.7; margin: 0; }
+    .list { display: grid; gap: 0.75rem; margin-top: 0.75rem; }
+    .chip-list { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.8rem; }
+    .chip { padding: 0.45rem 0.7rem; border-radius: 999px; background: rgba(138,141,255,0.12); color: #d9dcff; font-size: 0.84rem; border: 1px solid rgba(138,141,255,0.15); }
+    .contact-wrap { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 1rem; }
+    form { display: grid; gap: 0.8rem; padding: 1.2rem; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); }
+    label { display: grid; gap: 0.4rem; color: var(--muted); font-size: 0.95rem; }
+    input, textarea { width: 100%; border: 1px solid rgba(255,255,255,0.12); background: rgba(3, 7, 17, 0.75); color: var(--text); padding: 0.8rem 0.9rem; border-radius: 12px; outline: none; transition: border-color 180ms ease, box-shadow 180ms ease; }
+    input:focus, textarea:focus { border-color: rgba(97,247,211,0.45); box-shadow: 0 0 0 3px rgba(97,247,211,0.16); }
+    textarea { min-height: 130px; resize: vertical; }
+    .form-status { min-height: 1.2rem; color: var(--accent); font-size: 0.95rem; }
+    footer { max-width: 1120px; margin: 2.5rem auto 0; color: var(--muted); padding-bottom: 2rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .socials { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .socials a { color: var(--text); padding: 0.55rem 0.75rem; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); }
+    @media (max-width: 860px) { .hero, .contact-wrap { grid-template-columns: 1fr; } .card-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .topbar { flex-direction: column; align-items: flex-start; gap: 0.65rem; } .nav { gap: 0.4rem; } .site-shell { padding: 0 0.9rem 2rem; } .hero-card, .signal-panel, form { padding: 1rem; } .signal-grid { grid-template-columns: 1fr; } .hero { padding-top: 1.5rem; } }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="header-content">
-        <div class="logo">ANANYA KAR</div>
-        <div class="social-icons">
-          <a href="https://github.com/Ananyacodes" target="_blank" title="GitHub"><i class="fab fa-github fa-lg"></i></a>
-          <a href="https://linkedin.com/in/ananya-kar-6378291b4" target="_blank" title="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
-          <a href="mailto:ananyakar2007@gmail.com" title="Email"><i class="fas fa-envelope fa-lg"></i></a>
-        </div>
-      </div>
-    </div>
-  </header>
+  <canvas id="neural-canvas"></canvas>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#top">Ananya Kar</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#research">Research</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-  <div class="container">
-    <div class="nav-tabs">
-      <button class="tab-btn active" data-tab="portfolio">Portfolio & Credentials</button>
-      <button class="tab-btn" data-tab="scanner">Scan ze puter</button>
-    </div>
-
-    <!-- PORTFOLIO TAB -->
-    <div id="portfolio-tab" class="tab-content active">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <span style="background:rgba(0,255,200,0.15); padding:0.2rem 1rem; border-radius:40px; font-size:0.8rem;">SOC Analyst | Blue Team</span>
-          <h1 style="font-size: 2.8rem; margin: 1rem 0;">Ananya Kar<br>Cybersecurity & Detection Engineering</h1>
-          <p>Splunk, log analysis, incident response, and threat detection. TryHackMe Top 9%.</p>
-          <p>I create cute stuff to protect your device</p>
-          <div style="margin: 1.5rem 0;">
-            <a href="mailto:ananyakar2007@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Contact</a>
-            <a href="https://github.com/Ananyacodes" target="_blank" class="btn" style="margin-left: 0.8rem;"><i class="fab fa-github"></i> GitHub</a>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Building calm systems where threat signals become clear decisions.</h1>
+          <p class="lead">I’m a cybersecurity student focused on threat intelligence, blue-team workflows, and custom security tooling. Security feels comforting when you add whimsy to it.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Start a conversation</a>
+            <a class="btn btn-secondary" href="#work">Explore my work</a>
           </div>
         </div>
-        <a class="hero-card thm-profile-card" id="thmProfileLink" href="https://tryhackme.com/p/ananyakar2007" target="_blank" rel="noreferrer">
-          <i class="fas fa-shield-haltered" style="font-size: 3rem; color:#00ffc8;"></i>
-          <h3>TryHackMe • Live Profile</h3>
-          <p>Rank, rooms, and badges are refreshed from the public profile snapshot when it is available.</p>
-          <div class="thm-stats" id="thmStatsContainer">
-            <div class="thm-stat rank"><span class="stat-number" id="thmRank" style="opacity: 0.6;">⏳</span><span class="stat-label">Rank</span></div>
-            <div class="thm-stat"><span class="stat-number" id="thmRooms" style="opacity: 0.6;">⏳</span><br>Rooms</div>
-            <div class="thm-stat"><span class="stat-number" id="thmBadges" style="opacity: 0.6;">⏳</span><br>Badges</div>
+        <aside class="signal-panel panel" aria-label="Snapshot">
+          <div class="signal-pill">● Scroll depth signal</div>
+          <div class="signal-grid">
+            <div class="mini-stat"><strong id="scroll-percent">0%</strong><span>Neural field activation</span></div>
+            <div class="mini-stat"><strong>Security</strong><span>Threat-led thinking</span></div>
+            <div class="mini-stat"><strong>Research</strong><span>5G/6G security</span></div>
+            <div class="mini-stat"><strong>Systems</strong><span>Custom tooling</span></div>
           </div>
-          <p class="card-link-hint" id="thmUpdated">Loading live profile snapshot...</p>
-          <span class="card-link-hint"><i class="fas fa-arrow-up-right-from-square"></i> Open TryHackMe profile</span>
-        </a>
-      </div>
+        </aside>
+      </section>
 
-      <h2 class="section-title">Featured Projects</h2>
-      <div class="projects-showcase">
-        <a class="project-card project-card-link" href="https://github.com/Ananyacodes/behavior-logger" target="_blank" rel="noreferrer">
-          <div class="project-topline">
-            <div>
-              <div class="project-mark">01</div>
-              <h3 style="margin-top: 0.9rem; font-size: 1.15rem;">Behavior Logger</h3>
-              <p style="font-size: 0.8rem; color: #00ffc8; margin: 0.2rem 0 0;">Anomaly Detection</p>
-            </div>
-            <span class="project-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
-          </div>
-          <p>Endpoint monitoring system for behavioral profiling and unauthorized access detection. Detects suspicious patterns and anomalous user activities in real-time.</p>
-          <div style="margin-top: 1rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
-            <span class="tag">Python</span><span class="tag">Behavioral Analysis</span><span class="tag">Real-time</span>
-          </div>
-        </a>
-        <a class="project-card project-card-link" href="https://github.com/Ananyacodes/Auto-Secure-Chain" target="_blank" rel="noreferrer">
-          <div class="project-topline">
-            <div>
-              <div class="project-mark">02</div>
-              <h3 style="margin-top: 0.9rem; font-size: 1.15rem;">Auto-Secure-Chain</h3>
-              <p style="font-size: 0.8rem; color: #00ffc8; margin: 0.2rem 0 0;">ECU Firmware Scanner</p>
-            </div>
-            <span class="project-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
-          </div>
-          <p>Finds insecure artifacts in firmware: hardcoded credentials, debug interfaces, and PEM keys. Runs YARA rules and entropy analysis.</p>
-          <div style="margin-top: 1rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
-            <span class="tag">YARA</span><span class="tag">Firmware</span><span class="tag">CAN Bus</span>
-          </div>
-        </a>
-        <a class="project-card project-card-link" href="https://github.com/Ananyacodes/adverserial-5g-dt" target="_blank" rel="noreferrer">
-          <div class="project-topline">
-            <div>
-              <div class="project-mark">03</div>
-              <h3 style="margin-top: 0.9rem; font-size: 1.15rem;">5G Digital Twin</h3>
-              <p style="font-size: 0.8rem; color: #00ffc8; margin: 0.2rem 0 0;">Security Framework</p>
-            </div>
-            <span class="project-arrow"><i class="fas fa-arrow-up-right-from-square"></i></span>
-          </div>
-          <p>Digital twin environment simulating 5G/6G network attacks. Tests network slicing vulnerabilities and control plane exploits.</p>
-          <div style="margin-top: 1rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
-            <span class="tag">5G/6G</span><span class="tag">Network Security</span><span class="tag">Simulation</span>
-          </div>
-        </a>
-      </div>
+      <section id="about" class="section">
+        <div class="section-title">About</div>
+        <div class="card-grid">
+          <article class="card"><h3>What I do</h3><p>I combine blue-team play with practical tool-building to make security more accessible and resilient on real devices. I work on log analysis, threat detection, and lightweight detection tools that help defenders respond faster.</p></article>
+          <article class="card"><h3>Current focus</h3><p>Threat intelligence, SIEM-driven analysis, incident response, 5G/6G network security, and AI-assisted network intelligence.</p></article>
+        </div>
+      </section>
 
-      <h2 class="section-title">Experience</h2>
-      <div class="exp-card">
-        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-          <div>
-            <strong style="font-size: 1.1rem;">Cybersecurity Research Member</strong>
-            <p style="color:#94a3b8; font-size: 0.9rem;">NextTechLab</p>
-          </div>
-          <span class="exp-date">Present (Remote)</span>
+      <section id="work" class="section">
+        <div class="section-title">Experience</div>
+        <div class="card-grid">
+          <article class="card"><h3>Center of Artificial Intelligence and Robotics, DRDO</h3><p>Security Research Intern (May 2026–Present) — Processing and analyzing system and network logs to identify anomalies, potential cyber attacks, or unauthorized access attempts against critical defense networks.</p></article>
+          <article class="card"><h3>NextTechLab</h3><p>Cybersecurity Research Member (Oct 2024–Present) — Designed a risk monitoring system for stablecoin ecosystems using hybrid telemetry analysis and conducted ECU security research to identify anomalous CAN bus communication patterns.</p></article>
+          <article class="card"><h3>SparkIIT × Wipro</h3><p>Cyber Security & Ethical Hacking Intern (Oct 2025–Jan 2026) — Built a self-hosted web security dashboard for reconnaissance and developed a phishing simulation platform for awareness training.</p></article>
         </div>
-        <ul style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.95rem;">
-          <li>Designed risk monitoring system for stablecoin ecosystems using hybrid algorithms analyzing liquidity, peg deviation, and behavioral indicators</li>
-          <li>Conducting security analysis of Electronic Control Units (ECUs) in connected vehicles by monitoring CAN bus behavior and identifying anomalous communication patterns</li>
-          <li>Evaluating risks associated with CAN bus exploitation and ECU compromise</li>
-        </ul>
-      </div>
-      <div class="exp-card">
-        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-          <div>
-            <strong style="font-size: 1.1rem;">Cyber Security & Ethical Hacking Intern</strong>
-            <p style="color:#94a3b8; font-size: 0.9rem;">SparkIIT x Wipro</p>
-          </div>
-          <span class="exp-date">Oct 2025 – Jan 2026</span>
-        </div>
-        <ul style="margin-left: 1.5rem; color: #cbd5e1; font-size: 0.95rem;">
-          <li>Developed self-hosted web security dashboard for network reconnaissance and security auditing with ping tests, professional Nmap scans with service/version detection, TLS certificate inspection, and HTTP security header analysis</li>
-          <li>Developed phishing simulation platform for authorized security awareness training sending crafted emails with tracking pixels to test employee vulnerability</li>
-          <li>Captured IP addresses, device types, email opens, and link clicks with real-time analytics and exportable CSV reports</li>
-        </ul>
-      </div>
+      </section>
 
-      <h2 class="section-title">Technical Skills</h2>
-      <div class="skills-section">
-        <div class="skill-category">
-          <h4>🔍 Threat Detection & Analysis</h4>
-          <div class="tags">
-            <span class="tag">Splunk SIEM</span><span class="tag">Log Analysis</span><span class="tag">Wireshark</span>
-            <span class="tag">MITRE ATT&CK</span><span class="tag">Threat Intelligence</span><span class="tag">Anomaly Detection</span>
-          </div>
+      <section id="research" class="section">
+        <div class="section-title">Research & projects</div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Behavior Logger MCP</h3>
+            <p>Endpoint monitoring system profiling behavior with keystroke dynamics, application usage, and file access to detect anomalies while preserving local privacy.</p>
+            <a href="https://github.com/Ananyacodes/behavior_logger_mcp" target="_blank" rel="noreferrer">View on GitHub</a>
+          </article>
+          <article class="card">
+            <h3>Adversarial 5G Digital Twin</h3>
+            <p>Digital twin environment for 5G/6G network cores that simulates adversarial attacks on network slicing, authentication relay, and control plane exploits to test detection rules.</p>
+            <a href="https://github.com/Ananyacodes/adverserial-5g-dt" target="_blank" rel="noreferrer">View on GitHub</a>
+          </article>
+          <article class="card">
+            <h3>Privacy Guardian</h3>
+            <p>Zero-leak privacy router using nftables to block tracking, DNS leaks, ads, and malware at the network layer, with IPv6 protection and dynamic blocklists.</p>
+            <a href="https://github.com/Ananyacodes/privacy_guardian" target="_blank" rel="noreferrer">View on GitHub</a>
+          </article>
         </div>
-        <div class="skill-category">
-          <h4> Security Tools & Scanning</h4>
-          <div class="tags">
-            <span class="tag">Nmap</span><span class="tag">Burp Suite</span><span class="tag">Kali Linux</span>
-            <span class="tag">Metasploit</span><span class="tag">YARA Rules</span><span class="tag">Forensics</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h4> Programming & Systems</h4>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">Java</span><span class="tag">Linux</span>
-            <span class="tag">Windows Security</span><span class="tag">CAN Bus</span><span class="tag">ECU Analysis</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h4> Network & Compliance</h4>
-          <div class="tags">
-            <span class="tag">Network Security</span><span class="tag">OWASP Top 10</span><span class="tag">Incident Response</span>
-            <span class="tag">5G/6G Security</span><span class="tag">Digital Forensics</span><span class="tag">Cryptography</span>
-          </div>
-        </div>
-      </div>
+      </section>
 
-      <h2 class="section-title">Achievements & Highlights</h2>
-      <div class="cards-grid">
-        <div class="stat-card">
-          <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin: 1rem 0;">🏆</div>
-            <strong>TryHackMe Top 9%</strong>
-            <p style="color: #94a3b8; margin-top: 0.5rem;">194,052 rank • 86 rooms • 10 badges</p>
-          </div>
+      <section id="contact" class="section">
+        <div class="section-title">Contact</div>
+        <div class="contact-wrap">
+          <article class="card">
+            <h3>Say hello</h3>
+            <p>Open to thoughtful conversations about security research, product work, and collaborative builds. The form below sends a secure message to the backend, where any sensitive delivery settings stay in environment variables.</p>
+          </article>
+          <form id="contact-form">
+            <label>Name<input name="name" type="text" required placeholder="Your name" /></label>
+            <label>Email<input name="email" type="email" required placeholder="you@example.com" /></label>
+            <label>Message<textarea name="message" required placeholder="Tell me about the project, role, or idea."></textarea></label>
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <div class="form-status" id="form-status" aria-live="polite"></div>
+          </form>
         </div>
-        <div class="stat-card">
-          <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin: 1rem 0;">📚</div>
-            <strong>Published Researcher</strong>
-            <p style="color: #94a3b8; margin-top: 0.5rem;">IEEE paper on Quantum Technologies</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin: 1rem 0;">📊</div>
-            <strong>SIH Top 50</strong>
-            <p style="color: #94a3b8; margin-top: 0.5rem;">Out of 2,500 students</p>
-          </div>
-        </div>
-      </div>
+      </section>
+    </main>
 
-      <h2 class="section-title">Education</h2>
-      <div class="exp-card">
-        <strong>B.Tech. Computer Science</strong> <span style="color:#00f5ff;">Expected 2028</span>
-        <p>SRM Institute of Science and Technology (SRMIST), Bangalore</p>
-        <p><strong>CGPA:</strong> 8.95/10.0</p>
-        <p><strong>Relevant Coursework:</strong> Computer Networks, Operating Systems, Cryptography, Information Security, Linux Systems, Wireless Communications</p>
-      </div>
-    </div>
-
-    <!-- REAL SCANNER TAB -->
-    <div id="scanner-tab" class="tab-content">
-      <div style="padding: 1rem 0;">
-        <h1 style="font-size: 2rem;">Intelligence-Driven Security Scanner</h1>
-        <div id="backendStatus" style="margin: 0.5rem 0;">
-          <span class="status-badge status-offline" id="statusBadge">● Offline</span>
-          <span id="statusText">Backend not running</span>
-        </div>
-        <p>Performs reachability checks, DNS lookups, TLS and HTTP posture analysis, and service intelligence on authorized targets.</p>
-      </div>
-
-      <div class="scan-card">
-        <h3>Target Configuration</h3>
-        <p style="color: #ffaa44; margin: 0.5rem 0;">⚠ By using this tool, you confirm you have permission to scan the target.</p>
-        <input type="text" id="targetInput" placeholder="Target (localhost, 192.168.1.1, scanme.nmap.org)" value="localhost">
-        <select id="scanType">
-          <option value="quick">Attack Surface Sweep</option>
-          <option value="full">Deep Posture Review</option>
-        </select>
-        <button class="btn btn-primary" id="startScanBtn" style="margin-top: 1rem; width: 100%;">Start Scan</button>
-      </div>
-
-      <div class="loading" id="loadingIndicator">
-        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color:#00ffc8;"></i>
-        <p>Building an attack-surface profile... This may take 10-30 seconds.</p>
-      </div>
-
-      <div id="resultsContainer" style="display: none;">
-        <div id="scanSummary" class="scan-summary" style="display: none;">
-          <h3><i class="fas fa-chart-bar"></i> Scan Summary</h3>
-          <div id="summaryContent"></div>
-        </div>
-        
-        <div class="results-grid" id="resultsGrid">
-          <!-- Results will be inserted here -->
-        </div>
-
-        <div id="noResults" class="no-results" style="display: none;">
-          <div class="icon">🔍</div>
-          <h3>No results yet</h3>
-          <p>Click "Start Real Scan" to begin</p>
-        </div>
-      </div>
-
-      <div class="scan-card" style="background: #0a0c10; border-color: #00ffc8;">
-        <h3>Quick Setup</h3>
-        <p>To enable live scans, run this backend:</p>
-        <pre style="background: #0a0c10; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.7rem;">
-# 1. Install Flask & Nmap
-pip install flask flask-cors
-# macOS: brew install nmap | Linux: sudo apt install nmap
-
-# 2. Save as scanner_backend.py and run:
-python scanner_backend.py
-
-# Backend will run on http://localhost:5000
-        </pre>
-      </div>
-    </div>
+    <footer>
+      <span>© 2026 Ananya Kar. Built for thoughtful work.</span>
+      <div class="socials"><a href="https://github.com/Ananyacodes" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/ananya-kar-6378291b4/" target="_blank" rel="noreferrer">LinkedIn</a><a href="https://tryhackme.com/p/ananyakar2007" target="_blank" rel="noreferrer">TryHackMe</a></div>
+    </footer>
   </div>
 
-  <footer>
-    <p>© 2026 Ananya Kar — SOC Analyst | TryHackMe Top 9% | Real Security Scanner</p>
-  </footer>
-
-  <div id="permissionModal" class="modal">
-    <div class="modal-content">
-      <h2>Authorization Required</h2>
-      <p>This will perform network intelligence checks including:</p>
-      <ul style="text-align: left; margin: 1rem;">
-        <li>ICMP ping tests</li>
-        <li>DNS resolution and reverse lookup</li>
-        <li>Port exposure and service fingerprinting</li>
-        <li>TLS and HTTP posture analysis</li>
-      </ul>
-      <p><strong>I confirm I have explicit permission to scan this target.</strong></p>
-      <button id="acceptBtn" class="btn btn-primary">Proceed</button>
-      <button id="cancelBtn" class="btn">Cancel</button>
-    </div>
-  </div>
-
-  <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; pointer-events: none; z-index: 0; opacity: 0.3;"></canvas>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // Igloo.inc-style scroll disintegration effect
-    const canvas = document.getElementById('particleCanvas');
+    const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    let scrollProgress = 0;
-    const particleCount = 80;
-
-    class Particle {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.vx = (Math.random() - 0.5) * 8;
-        this.vy = (Math.random() - 0.5) * 8;
-        this.life = 1;
-        this.decay = Math.random() * 0.01 + 0.005;
-        this.size = Math.random() * 2 + 1;
-        this.color = Math.random() > 0.5 ? '#00ffc8' : '#ff006e';
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.vy += 0.1; // gravity
-        this.life -= this.decay;
-      }
-
-      draw() {
-        ctx.globalAlpha = this.life;
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.size, this.size);
-        ctx.globalAlpha = 1;
-      }
-    }
-
-    function burst(x, y, count) {
-      for (let i = 0; i < count; i++) {
-        particles.push(new Particle(x, y));
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles = particles.filter(p => p.life > 0);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('scroll', () => {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      scrollProgress = Math.min(window.scrollY / maxScroll, 1);
-
-      // Burst particles at intervals during scroll
-      if (Math.random() > 0.92) {
-        burst(
-          Math.random() * canvas.width,
-          Math.random() * canvas.height * 0.3,
-          Math.floor(Math.random() * 5 + 2)
-        );
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
-    animate();
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    const API_BASE = 'http://localhost:5000';
-    const RESUME_THM = { rank: '194,052', rooms: '86', badges: '10', streak: '0' };
-
-    function escapeHtml(value) {
-      return String(value)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;');
-    }
-
-    function setText(id, value) {
-      const element = document.getElementById(id);
-      if (element) {
-        element.textContent = value;
-      }
-    }
-
-    function buildCard(title, icon, content) {
-      return `
-        <div class="result-card">
-          <h4><span class="icon">${icon}</span>${escapeHtml(title)}</h4>
-          ${content}
-        </div>
-      `;
-    }
-
-    function formatMillis(value) {
-      if (value === null || value === undefined || value === '') {
-        return 'n/a';
-      }
-      return `${value} ms`;
-    }
-
-    function renderList(items, emptyText, className = 'threat-item') {
-      if (!items || !items.length) {
-        return `<div class="${className}">${escapeHtml(emptyText)}</div>`;
-      }
-
-      return items.map(item => `<div class="${className}">${escapeHtml(item)}</div>`).join('');
-    }
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const tabId = btn.getAttribute('data-tab');
-        document.querySelectorAll('.tab-btn').forEach(button => button.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(`${tabId}-tab`).classList.add('active');
-      });
-    });
-
-    async function fetchTryHackMeStats() {
-      try {
-        const response = await fetch(`${API_BASE}/thm-stats?t=${Date.now()}`, { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error('TryHackMe stats unavailable');
-        }
-
-        const data = await response.json();
-        setText('thmRank', data.rank || RESUME_THM.rank);
-        setText('thmRooms', data.rooms || RESUME_THM.rooms);
-        setText('thmBadges', data.badges || RESUME_THM.badges);
-
-        const thmProfileLink = document.getElementById('thmProfileLink');
-        if (thmProfileLink && data.profile_url) {
-          thmProfileLink.href = data.profile_url;
-        }
-
-        const updatedLabel = data.live
-          ? `Live profile snapshot · ${new Date(data.updated_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`
-          : 'Verified resume snapshot · live profile unavailable';
-        setText('thmUpdated', updatedLabel);
-      } catch (error) {
-        console.log('TryHackMe stats fallback:', error);
-        setText('thmRank', RESUME_THM.rank);
-        setText('thmRooms', RESUME_THM.rooms);
-        setText('thmBadges', RESUME_THM.badges);
-        setText('thmUpdated', 'Verified resume snapshot · live profile unavailable');
-      }
-    }
-
-    let backendOnline = false;
-    let pendingScan = null;
-    const modal = document.getElementById('permissionModal');
-    const startBtn = document.getElementById('startScanBtn');
-    const acceptBtn = document.getElementById('acceptBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const loading = document.getElementById('loadingIndicator');
-    const resultsContainer = document.getElementById('resultsContainer');
-    const scanSummary = document.getElementById('scanSummary');
-    const summaryContent = document.getElementById('summaryContent');
-    const resultsGrid = document.getElementById('resultsGrid');
-    const noResults = document.getElementById('noResults');
-    const targetInput = document.getElementById('targetInput');
-    const scanTypeSelect = document.getElementById('scanType');
-    const statusBadge = document.getElementById('statusBadge');
-    const statusText = document.getElementById('statusText');
-
-    async function checkBackend() {
-      try {
-        const response = await fetch(`${API_BASE}/health`);
-        if (!response.ok) {
-          throw new Error('backend unavailable');
-        }
-
-        backendOnline = true;
-        statusBadge.className = 'status-badge status-online';
-        statusBadge.textContent = 'Online';
-        statusText.textContent = 'Backend ready for live assessments';
-      } catch (error) {
-        backendOnline = false;
-        statusBadge.className = 'status-badge status-offline';
-        statusBadge.textContent = 'Offline';
-        statusText.textContent = 'Backend not running yet';
-      }
-    }
-
-    function showModal() {
-      modal.style.display = 'flex';
-    }
-
-    function hideModal() {
-      modal.style.display = 'none';
-    }
-
-    function renderScan(report) {
-      const ping = report.ping || {};
-      const ports = report.ports || [];
-      const counts = report.counts || {};
-      const dns = report.dns_intelligence || {};
-      const ssl = report.ssl_analysis || {};
-      const http = report.http_analysis || {};
-      const vulnerabilityAssessment = report.vulnerability_assessment || {};
-      const threatSummary = report.threat_summary || {};
-      const openPorts = ports.filter(port => port.state === 'open');
-      const closedPorts = counts.closed || 0;
-      const filteredPorts = counts.filtered || 0;
-      const criticalPorts = vulnerabilityAssessment.critical_ports || [];
-      const highRiskPorts = vulnerabilityAssessment.high_risk_ports || [];
-      const threatScore = threatSummary.score ?? 0;
-      const overallRisk = vulnerabilityAssessment.overall_risk || 'low';
-      const scanLabel = report.scan_type === 'quick' ? 'Quick sweep' : 'Deep sweep';
-      const pingState = ping.reachable ? 'online' : 'offline';
-      const pingHeadline = ping.reachable ? 'Target answered' : 'No response from target';
-      const dnsForward = dns.forward_lookup || 'unresolved';
-      const dnsReverse = dns.reverse_lookup || 'n/a';
-      const tlsVersion = ssl.protocol_version || 'n/a';
-      const tlsCipher = ssl.cipher_suite || 'n/a';
-      const tlsValid = ssl.validity && ssl.validity.valid ? 'valid' : 'review';
-      const serverHeader = http.server || 'n/a';
-      const missingHeaders = http.missing_headers || [];
-      const securityHeaders = http.security_headers || {};
-      const findings = threatSummary.findings || [];
-      const remediation = threatSummary.remediation || [];
-      const notes = report.notes || [];
-      const warnings = report.warnings || [];
-
-      summaryContent.innerHTML = `
-        <div class="scan-overview">
-          <div class="scan-metric"><div class="label">Target</div><div class="value">${escapeHtml(report.target)}</div><div class="subvalue">${scanLabel}</div></div>
-          <div class="scan-metric"><div class="label">Threat score</div><div class="value">${threatScore}/100</div><div class="subvalue">Overall risk: ${escapeHtml(overallRisk)}</div></div>
-          <div class="scan-metric"><div class="label">Open services</div><div class="value">${openPorts.length}</div><div class="subvalue">${criticalPorts.length} critical · ${highRiskPorts.length} high</div></div>
-          <div class="scan-metric"><div class="label">Reachability</div><div class="value">${ping.reachable ? 'Online' : 'Offline'}</div><div class="subvalue">${ping.received || 0}/${ping.transmitted || 0} packets</div></div>
-        </div>
-      `;
-
-      const openServicesHtml = openPorts.length
-        ? openPorts.map(port => `
-            <div class="port-item port-open">
-              <div class="port-header">${port.port}/${port.protocol} · ${escapeHtml(port.service)} <span style="color:#7ee2b8;">${escapeHtml(port.risk_level || 'info')}</span></div>
-              <div class="port-service">${escapeHtml(port.version || 'Service fingerprint captured')}</div>
-              ${port.known_cves && port.known_cves.length ? `<div class="port-service" style="margin-top:0.35rem; color:#fca5a5;">CVEs: ${escapeHtml(port.known_cves.join(', '))}</div>` : ''}
-            </div>
-          `).join('')
-        : '<div class="port-item">No open services surfaced in this pass.</div>';
-
-      resultsGrid.innerHTML = [
-        buildCard('Network Posture', '◉', `
-          <div class="ping-status ${pingState}">
-            <span class="status-dot"></span>
-            <div class="stat-text">
-              <strong>${pingHeadline}</strong>
-              <small>${ping.received || 0}/${ping.transmitted || 0} packets • ${ping.loss_percent ?? 100}% loss • ${formatMillis(ping.avg_ms)}</small>
-            </div>
-          </div>
-          <div class="threat-panel" style="margin-top:0.9rem; margin-bottom:0;">
-            <h4>Surface summary</h4>
-            <div class="threat-list">
-              <div class="threat-item">Closed ports: ${closedPorts}</div>
-              <div class="threat-item">Filtered ports: ${filteredPorts}</div>
-              <div class="threat-item">Critical exposures: ${criticalPorts.length}</div>
-              <div class="threat-item">High-risk exposures: ${highRiskPorts.length}</div>
-            </div>
-          </div>
-        `),
-        buildCard(`Open Services (${openPorts.length})`, '⟡', openServicesHtml),
-        buildCard('Intelligence Snapshot', '▣', `
-          <div class="intel-grid">
-            <div class="intel-pill"><small>DNS forward</small><strong>${escapeHtml(dnsForward)}</strong></div>
-            <div class="intel-pill"><small>DNS reverse</small><strong>${escapeHtml(dnsReverse)}</strong></div>
-            <div class="intel-pill"><small>TLS protocol</small><strong>${escapeHtml(tlsVersion)}</strong></div>
-            <div class="intel-pill"><small>TLS cipher</small><strong>${escapeHtml(tlsCipher)}</strong></div>
-            <div class="intel-pill"><small>Server header</small><strong>${escapeHtml(serverHeader)}</strong></div>
-            <div class="intel-pill"><small>Security headers</small><strong>${Object.keys(securityHeaders).length} present</strong></div>
-          </div>
-          <div class="threat-panel" style="margin-top:0.9rem; margin-bottom:0;">
-            <h4>TLS and header review</h4>
-            <div class="threat-list">
-              <div class="threat-item">TLS status: ${escapeHtml(tlsValid)}</div>
-              <div class="threat-item">Missing headers: ${missingHeaders.length ? escapeHtml(missingHeaders.join(', ')) : 'none detected'}</div>
-            </div>
-          </div>
-        `),
-        buildCard('Findings & Remediation', '✦', `
-          <div class="threat-panel">
-            <h4>Findings</h4>
-            <div class="threat-list">${renderList(findings, 'No high-level findings were generated.')}</div>
-          </div>
-          <div class="threat-panel" style="margin-bottom:0;">
-            <h4>Remediation</h4>
-            <div class="threat-list">${renderList(remediation, 'No remediation items generated.', 'threat-item remediation')}</div>
-          </div>
-          ${warnings.length ? `<div class="threat-panel" style="margin-top:1rem; margin-bottom:0;"><h4>Warnings</h4><div class="threat-list">${renderList(warnings, '', 'threat-item')}</div></div>` : ''}
-          ${notes.length ? `<div class="threat-panel" style="margin-top:1rem; margin-bottom:0;"><h4>Notes</h4><div class="threat-list">${renderList(notes, '', 'threat-item')}</div></div>` : ''}
-        `),
-      ].join('');
-
-      scanSummary.style.display = 'block';
-      resultsContainer.style.display = 'block';
-      noResults.style.display = 'none';
-    }
-
-    async function performRealScan(target, scanType) {
-      loading.style.display = 'block';
-      resultsContainer.style.display = 'none';
-      scanSummary.style.display = 'none';
-      resultsGrid.innerHTML = '';
-
-      try {
-        const response = await fetch(`${API_BASE}/scan`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ target, scan_type: scanType })
-        });
-
-        if (!response.ok) {
-          throw new Error('Scan failed');
-        }
-
-        const report = await response.json();
-        renderScan(report);
-      } catch (error) {
-        resultsContainer.style.display = 'block';
-        scanSummary.style.display = 'none';
-        resultsGrid.innerHTML = `
-          <div class="result-card" style="grid-column: 1 / -1; border-color: rgba(239, 68, 68, 0.4);">
-            <h4><span class="icon">✕</span>Scan Failed</h4>
-            <p style="color: #cbd5e1;">${escapeHtml(error.message)}</p>
-            <p style="color: #94a3b8; font-size: 0.82rem; margin-top: 0.5rem;">Start the backend with <strong>python scanner_backend.py</strong> and try again.</p>
-          </div>
-        `;
-      } finally {
-        loading.style.display = 'none';
-      }
-    }
-
-    startBtn.addEventListener('click', async () => {
-      const target = targetInput.value.trim();
-      if (!target) {
-        alert('Please enter a target IP or hostname.');
-        return;
-      }
-
-      await checkBackend();
-      if (!backendOnline) {
-        alert('Backend is not running yet. Run python scanner_backend.py and refresh.');
-        return;
-      }
-
-      pendingScan = { target, scanType: scanTypeSelect.value };
-      showModal();
-    });
-
-    acceptBtn.addEventListener('click', async () => {
-      hideModal();
-      if (pendingScan) {
-        await performRealScan(pendingScan.target, pendingScan.scanType);
-        pendingScan = null;
-      }
-    });
-
-    cancelBtn.addEventListener('click', () => {
-      hideModal();
-      pendingScan = null;
-    });
-
-    fetchTryHackMeStats();
-    checkBackend();
-    setInterval(fetchTryHackMeStats, 60 * 1000);
-    setInterval(checkBackend, 5000);
-
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) {
-        fetchTryHackMeStats();
-        checkBackend();
-      }
-    });
-
-    /* ============ Interactive Animations ============ */
-
-    // Scroll-triggered animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-on-scroll');
-          entry.target.style.animationDelay = `${index * 0.08}s`;
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // Observe all cards and major sections
-    document.querySelectorAll('.project-card, .exp-card, .skill-category, .stat-card, .result-card, .scan-card').forEach((el) => {
-      observer.observe(el);
-    });
-
-    // Mouse tracking on hero card for glow effect
-    const heroCard = document.querySelector('.hero-card');
-    if (heroCard) {
-      heroCard.addEventListener('mousemove', (e) => {
-        const rect = heroCard.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        heroCard.style.setProperty('--mouse-x', `${x}%`);
-        heroCard.style.setProperty('--mouse-y', `${y}%`);
-      });
-
-      heroCard.addEventListener('mouseleave', () => {
-        heroCard.style.setProperty('--mouse-x', '50%');
-        heroCard.style.setProperty('--mouse-y', '50%');
-      });
-    }
-
-    // Parallax effect on scroll
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          
-          // Parallax on hero section
-          const hero = document.querySelector('.hero');
-          if (hero) {
-            hero.style.transform = `translateY(${scrollY * 0.3}px)`;
-          }
-
-          // Parallax on header
-          const header = document.querySelector('header');
-          if (header && scrollY < 300) {
-            header.style.opacity = Math.max(0.5, 1 - scrollY / 500);
-          }
-
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-
-    // Enhanced button ripple effect on click
-    document.querySelectorAll('.btn, .cta-button').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-
-        ripple.style.cssText = `
-          position: absolute;
-          width: ${size}px;
-          height: ${size}px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.5);
-          left: ${x}px;
-          top: ${y}px;
-          pointer-events: none;
-          animation: rippleEffect 0.6s ease-out;
-        `;
-
-        this.style.position = 'relative';
-        this.style.overflow = 'hidden';
-        this.appendChild(ripple);
-
-        setTimeout(() => ripple.remove(), 600);
-      });
-    });
-
-    // Add ripple animation keyframe dynamically
-    if (!document.getElementById('rippleStyles')) {
-      const style = document.createElement('style');
-      style.id = 'rippleStyles';
-      style.innerHTML = `
-        @keyframes rippleEffect {
-          from {
-            transform: scale(0);
-            opacity: 1;
-          }
-          to {
-            transform: scale(1);
-            opacity: 0;
-          }
-        }
-      `;
-      document.head.appendChild(style);
-    }
-
-    // Smooth hover tilt effect for cards (optional 3D perspective)
-    document.querySelectorAll('.project-card, .exp-card, .stat-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const rotateX = (y - rect.height / 2) / 10;
-        const rotateY = (x - rect.width / 2) / 10;
-
-        // Set radial gradient position
-        card.style.setProperty('--hover-x', `${(x / rect.width) * 100}%`);
-        card.style.setProperty('--hover-y', `${(y / rect.height) * 100}%`);
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--hover-x', '50%');
-        card.style.setProperty('--hover-y', '50%');
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-      });
-    });
-
-    // Observe section titles for animation
-    document.querySelectorAll('.section-title').forEach(title => {
-      observer.observe(title);
-    });
+    const status = document.getElementById('form-status');
+    const scrollPercent = document.getElementById('scroll-percent');
+    const form = document.getElementById('contact-form');
+    const state = { width: 0, height: 0, nodes: [], mouse: { x: 0, y: 0 }, activeCount: 18 };
+    function resize() { state.width = canvas.width = window.innerWidth * window.devicePixelRatio; state.height = canvas.height = window.innerHeight * window.devicePixelRatio; ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0); const count = Math.min(44, Math.max(18, Math.round(window.innerWidth / 28))); state.nodes = Array.from({ length: count }, () => ({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, vx: (Math.random() - 0.5) * 0.22, vy: (Math.random() - 0.5) * 0.22, r: Math.random() * 2.2 + 1.1 })); state.activeCount = Math.min(count, 24); }
+    function updateScroll() { const height = document.documentElement.scrollHeight - window.innerHeight; const progress = height > 0 ? Math.min(1, window.scrollY / height) : 0; state.activeCount = Math.round(16 + progress * 24); scrollPercent.textContent = `${Math.round(progress * 100)}%`; }
+    function draw() { const width = window.innerWidth; const height = window.innerHeight; ctx.clearRect(0, 0, width, height); const progress = Math.min(1, window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight)); ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (let i = 0; i < Math.min(state.activeCount, state.nodes.length); i += 1) { const node = state.nodes[i]; node.x += node.vx; node.y += node.vy; if (node.x < 0 || node.x > width) node.vx *= -1; if (node.y < 0 || node.y > height) node.vy *= -1; const pulse = 0.35 + progress * 0.65; ctx.beginPath(); ctx.fillStyle = `rgba(97,247,211,${0.2 + progress * 0.8})`; ctx.arc(node.x, node.y, node.r + pulse, 0, Math.PI * 2); ctx.fill(); } ctx.strokeStyle = `rgba(138,141,255,${0.14 + progress * 0.18})`; ctx.lineWidth = 1; for (let i = 0; i < Math.min(state.activeCount, state.nodes.length); i += 1) { for (let j = i + 1; j < Math.min(state.activeCount, state.nodes.length); j += 1) { const a = state.nodes[i]; const b = state.nodes[j]; const dist = Math.hypot(a.x - b.x, a.y - b.y); if (dist < 110 + progress * 70) { ctx.globalAlpha = Math.max(0.06, 1 - dist / 180); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); } } } ctx.restore(); requestAnimationFrame(draw); }
+    window.addEventListener('resize', resize); window.addEventListener('scroll', updateScroll, { passive: true }); form.addEventListener('submit', async (event) => { event.preventDefault(); const formData = new FormData(form); const payload = Object.fromEntries(formData.entries()); status.textContent = 'Sending...'; try { const response = await fetch('/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); const result = await response.json(); status.textContent = result.message || 'Thanks for reaching out.'; if (response.ok) form.reset(); } catch (error) { status.textContent = 'The form is ready, but the backend is not reachable yet.'; } }); resize(); updateScroll(); draw();
   </script>
 </body>
 </html>

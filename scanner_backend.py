@@ -1,23 +1,68 @@
 from datetime import datetime, timezone
 import json
+import os
 import platform
 import re
+import smtplib
 import socket
 import ssl
 import subprocess
+from email.message import EmailMessage
+from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 from urllib.parse import urlparse
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 
+BASE_DIR = Path(__file__).resolve().parent
+
+
+def load_dotenv(path: Path) -> None:
+    if not path.exists():
+        return
+
+    with path.open("r", encoding="utf-8") as handle:
+        for raw_line in handle:
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key == "SMTP_PASSWORD":
+                value = "".join(value.split())
+            elif key == "SMTP_USERNAME":
+                value = value.strip()
+            if key:
+                os.environ[key] = value
+
+
+load_dotenv(BASE_DIR / ".env")
 app = Flask(__name__)
 CORS(app)
 
 THM_PROFILE_URL = "https://tryhackme.com/p/ananyakar2007"
+SITE_GITHUB_URL = os.getenv("SITE_GITHUB_URL", "https://github.com/Ananyacodes")
+SITE_LINKEDIN_URL = os.getenv("SITE_LINKEDIN_URL", "https://www.linkedin.com/in/ananya-kar-6378291b4/")
 THM_PUBLIC_PROFILE_API = "https://tryhackme.com/api/v2/public-profile?username={username}"
+
+RATE_LIMIT_WINDOW = 60 * 15
+RATE_LIMIT_MAX = 6
+RATE_LIMIT_MEMORY: dict[str, list[float]] = {}
+
+
+def is_rate_limited(ip: str) -> bool:
+    now = datetime.now(timezone.utc).timestamp()
+    history = RATE_LIMIT_MEMORY.setdefault(ip, [])
+    history[:] = [ts for ts in history if now - ts < RATE_LIMIT_WINDOW]
+    if len(history) >= RATE_LIMIT_MAX:
+        return True
+    history.append(now)
+    return False
 RESUME_THM_STATS = {
     "rank": "194,052",
     "rooms": "86",
@@ -329,9 +374,76 @@ def build_nmap_command(target: str, scan_type: str) -> list[str]:
     return ["nmap", "-sV", "-sC", target]
 
 
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve_site(path: str):
+    if path and (BASE_DIR / path).exists():
+        return send_from_directory(BASE_DIR, path)
+    return send_from_directory(BASE_DIR, "index.html")
+
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok", "message": "Scanner backend is running"})
+
+
+@app.route("/contact", methods=["POST"])
+def contact():
+    payload = request.get_json(silent=True) or {}
+    name = (payload.get("name") or "").strip()
+    email = (payload.get("email") or "").strip()
+    message = (payload.get("message") or "").strip()
+
+    if not name or not email or not message:
+        return jsonify({"ok": False, "message": "Please complete every field before sending."}), 400
+
+    if "@" not in email or "." not in email.split("@", 1)[1]:
+        return jsonify({"ok": False, "message": "Please provide a valid email address."}), 400
+
+    load_dotenv(BASE_DIR / ".env")
+    contact_recipient = os.getenv("CONTACT_EMAIL", "ananyakar2007@gmail.com")
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", "465"))
+    smtp_username = os.getenv("SMTP_USERNAME", "")
+    smtp_password = os.getenv("SMTP_PASSWORD", "")
+
+    if is_rate_limited(request.remote_addr or request.headers.get("X-Forwarded-For", "unknown")):
+        return jsonify({"ok": False, "message": "Too many contact attempts. Please try again later."}), 429
+
+    if contact_recipient and smtp_host and smtp_username and smtp_password:
+        try:
+            mail = EmailMessage()
+            mail["Subject"] = f"Portfolio contact from {name}"
+            mail["From"] = smtp_username
+            mail["To"] = contact_recipient
+            mail["Reply-To"] = email
+            mail.set_content(
+                f"Name: {name}\nEmail: {email}\n\n{message}"
+            )
+
+            use_ssl = os.getenv("SMTP_USE_SSL", "true").lower() in ["1", "true", "yes"]
+            smtp_timeout = int(os.getenv("SMTP_TIMEOUT", "20"))
+
+            if use_ssl:
+                with smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=smtp_timeout) as server:
+                    if smtp_username and smtp_password:
+                        server.login(smtp_username, smtp_password)
+                    server.send_message(mail)
+            else:
+                with smtplib.SMTP(smtp_host, smtp_port, timeout=smtp_timeout) as server:
+                    server.ehlo()
+                    if smtp_port == 587:
+                        server.starttls()
+                        server.ehlo()
+                    if smtp_username and smtp_password:
+                        server.login(smtp_username, smtp_password)
+                    server.send_message(mail)
+
+            return jsonify({"ok": True, "message": "Thanks — your message was sent successfully."})
+        except Exception as exc:
+            return jsonify({"ok": False, "message": "Email delivery failed. Check SMTP settings and logs.", "error": str(exc)}), 500
+
+    return jsonify({"ok": False, "message": "SMTP is not configured. Please set SMTP_HOST, SMTP_USERNAME, and SMTP_PASSWORD."}), 500
 
 
 @app.route("/thm-stats", methods=["GET"])

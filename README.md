@@ -50,7 +50,12 @@ pip install flask flask-cors
 - **Linux**: `sudo apt install nmap`
 - **Windows**: Download from https://nmap.org/download.html
 
-**3. Run Backend**
+**3. Configure environment variables**
+1. Copy `.env.example` to `.env`
+2. Fill in `CONTACT_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, and `SMTP_PASSWORD`
+3. Optionally set `SMTP_USE_SSL=true` if your provider requires SSL/TLS
+
+**4. Run Backend**
 ```bash
 python scanner_backend.py
 ```
